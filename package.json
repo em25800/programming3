@@ -1,0 +1,23 @@
+{
+  "name": "das5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "dev": "script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/em25800/programming3.git"
+  },
+  "author": "em",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/em25800/programming3/issues"
+  },
+  "homepage": "https://github.com/em25800/programming3#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1"
+  }
+}
