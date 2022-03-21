@@ -5,22 +5,8 @@ module.exports = class Predator extends LivingCreature {
         super(x, y);
         this.energy = 8
     }
-
-    getNewCoordinates() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y - 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y - 1],
-            [this.x + 1, this.y],
-            [this.x + 1, this.y + 1]
-        ]
-    }
-
     chooseCell(char1, char2) {
-        this.getNewCoordinates()
+        super.getNewCoordinates()
         let found = []
         for (let i in this.directions) {
             let x = this.directions[i][0]
@@ -48,6 +34,7 @@ module.exports = class Predator extends LivingCreature {
             for (var i = 0; i < grassEaterArr.length; i++) {
                 if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1)
+                    break
                 }
 
             }
@@ -63,14 +50,12 @@ module.exports = class Predator extends LivingCreature {
             for (var i = 0; i < tabletkaCell.length; i++) {
                 if (newX == tabletkaCell[i].x && newY == tabletkaCell[i].y) {
                     tabletkaCell.splice(i, 1)
+                    break
                 }
             }
             this.x = newX
             this.y = newY
-        } else this.move()
-
-
-        // } 
+        }
     }
 
     move() {

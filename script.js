@@ -5,28 +5,6 @@ let PosionedGrassArr = []
 let vochxarArr = []
 let tabletArr = []
 let matrix = []
-// let matrix = [
-//     [2, 3, 1, 1, 0, 1, 1, 1, 0, 0, 1, 2, 0, 1, 0, 3, 1, 3, 1, 3],
-//     [0, 2, 3, 1, 2, 0, 1, 2, 0, 0, 1, 0, 2, 3, 1, 1, 3, 0, 3, 3],
-//     [0, 0, 1, 1, 2, 2, 3, 1, 2, 2, 0, 1, 3, 1, 1, 0, 3, 2, 0, 0],
-//     [3, 2, 2, 0, 3, 0, 3, 1, 0, 1, 0, 1, 3, 1, 1, 2, 2, 0, 0, 0],
-//     [2, 2, 0, 2, 3, 5, 0, 1, 3, 1, 2, 0, 0, 3, 3, 1, 2, 0, 0, 3],
-//     [2, 2, 1, 2, 0, 3, 1, 1, 2, 0, 2, 2, 0, 1, 0, 0, 2, 3, 1, 1],
-//     [1, 0, 3, 1, 1, 1, 1, 3, 1, 3, 2, 3, 0, 3, 1, 3, 3, 0, 1, 3],
-//     [2, 0, 1, 0, 1, 3, 2, 1, 2, 1, 0, 3, 0, 3, 0, 2, 1, 1, 1, 0],
-//     [2, 1, 2, 3, 0, 2, 3, 3, 1, 0, 3, 0, 3, 2, 2, 1, 0, 0, 3, 0],
-//     [3, 0, 2, 5, 2, 2, 2, 0, 4, 0, 0, 1, 0, 1, 1, 1, 3, 0, 3, 3],
-//     [3, 3, 0, 1, 3, 0, 1, 3, 0, 3, 1, 3, 0, 2, 3, 1, 2, 1, 0, 2],
-//     [1, 1, 3, 2, 1, 3, 3, 3, 1, 2, 1, 0, 0, 0, 1, 0, 2, 2, 1, 3],
-//     [3, 0, 0, 3, 1, 3, 2, 0, 1, 0, 1, 1, 3, 0, 1, 0, 3, 3, 3, 1],
-//     [1, 2, 3, 0, 1, 0, 2, 2, 0, 3, 0, 1, 2, 1, 3, 1, 1, 1, 2, 3],
-//     [0, 2, 1, 0, 3, 0, 1, 2, 3, 0, 1, 0, 3, 1, 0, 3, 2, 3, 0, 0],
-//     [1, 2, 3, 3, 1, 2, 0, 0, 0, 0, 2, 2, 1, 2, 1, 2, 1, 0, 1, 3],
-//     [3, 1, 0, 3, 3, 1, 3, 0, 1, 0, 1, 1, 2, 0, 0, 1, 2, 1, 3, 0],
-//     [1, 1, 3, 0, 0, 1, 3, 2, 2, 2, 3, 1, 2, 3, 0, 1, 1, 1, 0, 2],
-//     [1, 3, 0, 2, 3, 2, 2, 1, 0, 0, 0, 3, 1, 0, 2, 3, 1, 0, 3, 0],
-//     [1, 3, 3, 3, 0, 2, 0, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 3, 1, 0],
-// ]
 function matrixGen(n, gr, grEat, predator, posion, tabletka) {
     for (let x = 0; x < n; x++) {
         matrix[x] = []
@@ -90,12 +68,12 @@ function matrixGen(n, gr, grEat, predator, posion, tabletka) {
     return matrix
 }
 var n
-var a=prompt("enter matrix length")
-var b=prompt("enter grass number")
-var c=prompt("enter grass eater number")
-var d=prompt("enter predator number")
-var e=prompt("enter poisoned grass number")
-var f=prompt("enter tablet number")
+var a=50
+var b=Math.floor(Math.random() * a)
+var c=Math.floor(Math.random() * a)
+var d=Math.floor(Math.random() * a)
+var e=Math.floor(Math.random() * a)
+var f=Math.floor(Math.random() * a)
 
 matrixGen(a,b,c,d,e,f)
 function rand(arr) {
