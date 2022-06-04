@@ -4,7 +4,8 @@ let LivingCreature = require('./LivingCreature')
 
 // Grass մոդուլը էքսպորտ ենք անում
 module.exports = class Grass extends LivingCreature{
-   
+   constructor(x,y){super(x,y)
+this.multiply=0}
     mul() {
         this.multiply++;
         if (this.multiply >= 5) {

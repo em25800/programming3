@@ -1,8 +1,10 @@
+function rand(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
+}
 
+let livingcreature=require('./livingcreature');
 
-const predator = require('./predator');
-
-module.exports = class GrassEater extends predator{
+module.exports = class GrassEater extends livingcreature{
     constructor(x, y){
         super(x, y);
         this.energy = 8

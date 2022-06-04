@@ -1,3 +1,6 @@
+function rand(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
+}
 let LivingCreature = require('./LivingCreature')
 
 module.exports = class Predator extends LivingCreature {

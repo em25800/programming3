@@ -4,20 +4,18 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require("fs");
-const Predator = require('./predator');
 
 app.use(express.static("."));
 
 app.get('/', function (req, res) {
     res.redirect('index.html');
-});
-server.listen(3000);
+}).listen(8000)
 
 //10
 
 //քո սկրիպտ ֆայլից տպի մատրիցդ գեներացնոլու հատվածը և դատարկ զանգվածը
 // ինձ մոտ այն չի գեներացվում,,,քեզ մոտ լաաաավ կլինի , որ գեներացվի
-
+matrix = []
 function matrixGen(n, gr, grEat, predator, posion, tabletka) {
     for (let x = 0; x < n; x++) {
         matrix[x] = []
@@ -80,6 +78,15 @@ function matrixGen(n, gr, grEat, predator, posion, tabletka) {
     }
     return matrix
 }
+var n
+var a=50
+var b=Math.floor(Math.random() * a)
+var c=Math.floor(Math.random() * a)
+var d=Math.floor(Math.random() * a)
+var e=Math.floor(Math.random() * a)
+var f=Math.floor(Math.random() * a)
+var side =10
+matrixGen(a,b,c,d,e,f)
 
 //այստեղ քո պատրաստի թվերով լցված զանգվածը ուղարկում ես կլիենտին:
 //սոքեթի emit մեթոդը թույլ է տալիս առաջին արգումենտով ստեղծել իվենթի անունը, 
@@ -94,13 +101,12 @@ function matrixGen(n, gr, grEat, predator, posion, tabletka) {
 //եթե գնացիր ու ամենինչ գրեցիր, արի էստեղ, դեռ անելիք ունենք
 
 //էստեղ բեր քո գազանիկների դատարկ զանգվածները
-let grassArr = []
-let grassEaterArr = []
-let predatorArr = []
-let PosionedGrassArr = []
-let vochxarArr = []
-let tabletArr = []
-let matrix = []
+grassArr = []
+grassEaterArr = []
+predatorArr = []
+PosionedGrassArr = []
+tabletArr = []
+
     //քանի որ քո կլասս-երը արդեն մոդուլներ են և ոչ մի կապ չունեն html ֆայլիդ հետ՝
     //այլ աշխատում են սերվերի վրա:
     //Դու պետք է նրանց իմպորտ անես: Ինձ մոտ նրանք երկուսն են, քեզ մոտ ավելի շատ
@@ -108,7 +114,7 @@ let matrix = []
      GrassEater = require("./grASSeater")
      PosionedGrass = require("./poison")
      Predator = require("./predator")
-     tabletka=require("./tablet")
+    tabletka=require("./tablet")
 
 
 
@@ -135,7 +141,7 @@ let matrix = []
                     PosionedGrassArr.push(toxic)
                 }
                 else if (matrix[x][y] == 5) {   
-                    let bomba = new EnergyTablet(x, y)
+                    let bomba = new tabletka(x, y)
                     tabletArr.push(bomba)
                 }
             }
