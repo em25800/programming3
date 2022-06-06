@@ -1,20 +1,15 @@
-//առաջին 10 տողը նույնությամբ գրիր, որպեսզի լոկալհոստ ունենաս
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require("fs");
-
+// io.sockets.emit(io())
 app.use(express.static("."));
 
 app.get('/', function (req, res) {
     res.redirect('index.html');
-}).listen(8000)
-
-//10
-
-//քո սկրիպտ ֆայլից տպի մատրիցդ գեներացնոլու հատվածը և դատարկ զանգվածը
-// ինձ մոտ այն չի գեներացվում,,,քեզ մոտ լաաաավ կլինի , որ գեներացվի
+});
+server.listen(3000);
 matrix = []
 function matrixGen(n, gr, grEat, predator, posion, tabletka) {
     for (let x = 0; x < n; x++) {
@@ -78,133 +73,134 @@ function matrixGen(n, gr, grEat, predator, posion, tabletka) {
     }
     return matrix
 }
+console.log(matrix);
 var n
-var a=50
-var b=Math.floor(Math.random() * a)
-var c=Math.floor(Math.random() * a)
-var d=Math.floor(Math.random() * a)
-var e=Math.floor(Math.random() * a)
-var f=Math.floor(Math.random() * a)
-var side =10
-matrixGen(a,b,c,d,e,f)
-
-//այստեղ քո պատրաստի թվերով լցված զանգվածը ուղարկում ես կլիենտին:
-//սոքեթի emit մեթոդը թույլ է տալիս առաջին արգումենտով ստեղծել իվենթի անունը, 
-//2-րդ արգումենտով ուղղարկել տվյալը, այն ինչ ուզում ես ուղարկել
-
-    io.sockets.emit('send matrix', matrix)
-    
-// հիմա գնա կլիենտի ֆայլ
-
-//.........................................լոադինգ
-
-//եթե գնացիր ու ամենինչ գրեցիր, արի էստեղ, դեռ անելիք ունենք
-
-//էստեղ բեր քո գազանիկների դատարկ զանգվածները
-grassArr = []
+var a = 50
+var b = Math.floor(Math.random() * a)
+var c = Math.floor(Math.random() * a)
+var d = Math.floor(Math.random() * a)
+var e = Math.floor(Math.random() * a)
+var f = Math.floor(Math.random() * a)
+matrixGen(a, b, c, d, e, f)
+io.sockets.emit('send matrix', matrix)
+grassArr=[]
 grassEaterArr = []
 predatorArr = []
 PosionedGrassArr = []
 tabletArr = []
-
-    //քանի որ քո կլասս-երը արդեն մոդուլներ են և ոչ մի կապ չունեն html ֆայլիդ հետ՝
-    //այլ աշխատում են սերվերի վրա:
-    //Դու պետք է նրանց իմպորտ անես: Ինձ մոտ նրանք երկուսն են, քեզ մոտ ավելի շատ
-     Grass = require("./GrASS")
-     GrassEater = require("./grASSeater")
-     PosionedGrass = require("./poison")
-     Predator = require("./predator")
-    tabletka=require("./tablet")
-
-
-
-    //Այժմ լցնենք մատրիցը օբյեկտներով
-    //սարքի մի հատ ֆունկցիա օրինակ createObject անունով
-    //և էստեղ բեր քո սկրիպտ ֆայլի օբյեկտներով լցնող հատվածը
-    function createObject(matrix) {
-        for (var x = 0; x < matrix.length; x++) {
-            for (var y = 0; y < matrix[x].length; y++) {
-                if (matrix[x][y] == 1) {
-                    let gr = new Grass(x, y)
-                    grassArr.push(gr)
-                }
-                else if (matrix[x][y] == 2) {
-                    let great = new GrassEater(x, y)
-                    grassEaterArr.push(great)
-                }
-                else if (matrix[x][y] == 3) {
-                    let small = new Predator(x, y)
-                    predatorArr.push(small)
-                }
-                else if (matrix[x][y] == 4) {
-                    let toxic = new PosionedGrass(x, y)
-                    PosionedGrassArr.push(toxic)
-                }
-                else if (matrix[x][y] == 5) {   
-                    let bomba = new tabletka(x, y)
-                    tabletArr.push(bomba)
-                }
+Grass = require("./GrASS")
+GrassEater = require("./grASSeater")
+PosionedGrass = require("./poison")
+Predator = require("./predator")
+tabletka = require("./tablet")
+function createObject(matrix) {
+    for (var x = 0; x < matrix; x++) {
+        for (var y = 0; y < matrix[x].length; y++) {
+            if (matrix[x][y] == 1) {
+                let gr = new Grass(x, y)
+                grassArr.push(gr)
+            }
+            else if (matrix[x][y] == 2) {
+                let great = new GrassEater(x, y)
+                grassEaterArr.push(great)
+            }
+            else if (matrix[x][y] == 3) {
+                let small = new Predator(x, y)
+                predatorArr.push(small)
+            }
+            else if (matrix[x][y] == 4) {
+                let toxic = new PosionedGrass(x, y)
+                PosionedGrassArr.push(toxic)
+            }
+            else if (matrix[x][y] == 5) {
+                let bomba = new tabletka(x, y)
+                tabletArr.push(bomba)
             }
         }
-        
-        // և կրկին ուղարկի կլիենտիդ: 
-        //չմոռանաս , որ emit-ը տվյալ ուղարկողն է, իսկ on-ը ստացողը և կատարողը
-        //այս դեպքում 2-րդ արգումենտը տվյալն է
-        io.sockets.emit('send matrix', matrix)
-
-
     }
-
-
-    //հիմա անցնենք նրանց վայրենի գործունեությանը
-    //որևէ անունով կոչիր ֆունկցիադ և մեջը դիր մեթոդների հատվածը:
-
-    function game() {
-        for (let i in grassArr) {
-            grassArr[i].mul()
-        }
-        for (let i in grassEaterArr) {
-            grassEaterArr[i].eat()
-        }
-        for (let i in predatorArr) {
-            predatorArr[i].eat()
-        }
-        for (let i in PosionedGrassArr) {
-            PosionedGrassArr[i].mul()
-        }
-        for (let i in PosionedGrassArr) {
-            PosionedGrassArr[i].posion()
-        }
-        for (let i in tabletArr) {
-            tabletArr[i].mul()
-        }
-        for (let i in predatorArr) {
-            predatorArr[i].die()
-        }
-        //այո, դու ճիշտ ես տեսնում, կրկին և կրկին
-        io.sockets.emit("send matrix", matrix);
+    io.sockets.emit('send matrix', matrix)
+}
+function game() {
+    for (let i in grassArr) {
+        grassArr[i].mul()
     }
-
-    //մեր խաղի շարժը լինելու է 1 վարկյանը մեկ
-    setInterval(game, 1000)
-    
-
-
-      // մինչև այժմ մենք ինքներս էինք դնում իվենթների անուննները, 
-      //օրինակ send matrix կամ ըըը... էլ չկա :D
-      // էստեղ connection պատրասի իվենթի անուն է, որը աշխատում է այն ժամանակ, 
-      //երբ որևէ մեկը աշխատացնում է սերվերը՝ մտնում է սերվեր
-      //և մենք դեռ չէինք կանչել createObject ֆունկցիան
-      // էստեղ կկանչենք )))
+    for (let i in grassEaterArr) {
+        grassEaterArr[i].eat()
+    }
+    for (let i in predatorArr) {
+        predatorArr[i].eat()
+    }
+    for (let i in PosionedGrassArr) {
+        PosionedGrassArr[i].mul()
+    }
+    for (let i in PosionedGrassArr) {
+        PosionedGrassArr[i].posion()
+    }
+    for (let i in tabletArr) {
+        tabletArr[i].mul()
+    }
+    for (let i in predatorArr) {
+        predatorArr[i].die()
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+setInterval(game, 1000)
 io.on('connection', function (socket) {
     createObject(matrix)
 })
 
-//դե ինչ այսօր այսքանը:
+function kill() {
+    grassArr = [];
+    grassEaterArr = []
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            matrix[y][x] = 0;
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
 
-//ինձ համար շատ կարևոր է , որ հենց դու շատ լավ հասկանաս էս 
-//ամենը ու լինես լավագույնը քո ընտրած ոլորտում:
+
+function addGrass() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 1
+            var gr = new Grass(x, y, 1)
+            grassArr.push(gr)
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+function addGrassEater() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 2
+            grassEaterArr.push(new GrassEater(x, y, 2))
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
 
 
 
-//Գիտեմ, որ լիիիիիքը սխալ կա մեջը: Դուք ճիշտը գրեք :PPPPP
+io.on('connection', function (socket) {
+    createObject(matrix);
+    socket.on("kill", kill);
+    socket.on("add grass", addGrass);
+    socket.on("add grassEater", addGrassEater);
+});
+
+
+var statistics = {};
+
+setInterval(function () {
+    statistics.grass = grassArr.length;
+    statistics.grassEater = grassEaterArr.length;
+    fs.writeFile("statistics.json", JSON.stringify(statistics), function () {
+        console.log("send")
+    })
+}, 1000)
